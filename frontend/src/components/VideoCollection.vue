@@ -16,7 +16,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import VideoAPI from '../api/videos';
+// import VideoAPI from '../api/videos';
 import Likes from './Likes';
 import VideoIndex from './VideoIndex';
 import VideoPlayer from './VideoPlayer';
@@ -35,7 +35,7 @@ export default {
     VideoPlayer
   },
   created: async function () {
-    this.getVideoData();
+    // this.getVideoData();
     this.fetched = true;
     this.currentVideo = this.$store.getters.currentVideo;
 
@@ -51,15 +51,15 @@ export default {
     });
   },
   methods: {
-    getVideoData: async function () {
-      let id = null;
+    // getVideoData: async function () {
+    //   let id = null;
 
-      if (this.currentUser) {
-        id = this.currentUser.userId;
-      }
-      let { data } = await VideoAPI.getVideoData(this.currentVideoUrl, id);
-      this.$store.commit('receiveVideoData', data);
-    }
+    //   if (this.currentUser) {
+    //     id = this.currentUser.userId;
+    //   }
+    //   let { data } = await VideoAPI.getVideoData(this.currentVideoUrl, id);
+    //   this.$store.commit('receiveVideoData', data);
+    // }
   },
   computed: mapState(['currentVideoUrl', 'playCount', 'currentUser']),
   beforeDestroy() {

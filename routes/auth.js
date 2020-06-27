@@ -1,5 +1,7 @@
 const express = require('express');
 const axios = require("axios");
+const jwt = require("jsonwebtoken");
+const keys = require('../config/keys');
 
 const db = require("../db/models");
 const { User } = db;
@@ -19,10 +21,29 @@ router.post('/google', async (req, res, next) => {
 
   if (!user) {
     user = new User ({ fName: given_name, lName: family_name, email: email });
-    await user.save();
+    try {
+      await user.save();
+    } catch {
+      res.status(424);
+      next();
+      return;
+    }
   }
 
-  res.json({ fName: user.fName, userId: user.id });
+  const payload = { fName: user.fName, userId: user.id };
+  
+  jwt.sign(
+    payload,
+    keys.secretOrKey,
+    // Tell the key to expire in one hour
+    { expiresIn: 3600 },
+    (err, token) => {
+      res.json({
+        success: true,
+        token: "Bearer " + token,
+      });
+    }
+  );
 
 })
 

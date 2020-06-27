@@ -7,6 +7,7 @@ moment().format();
 const router = express.Router();
 
 router.get("/videos", async (req, res) => {
+
   const videos = await Video.findAll();
 
   res.json({ videos });

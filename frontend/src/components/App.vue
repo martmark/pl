@@ -1,23 +1,21 @@
 <template>
   <div id="app">
-    <Header :currentUser="currentUser" @logout='logout'></Header>
-    <Main :currentUser="currentUser" @signed-in='receiveUser'></Main>
-    <Footer></Footer>
+    <Main ></Main>
     <notifications group="foo" classes="orange-notification" />
   </div>
 </template>
 
 <script>
 import Main from './Main';
-import Header from './Header';
-import Footer from './Footer';
+// import Header from './Header';
+// import Footer from './Footer';
 
 export default {
   name: 'App',
   components: {
     Main,
-    Header,
-    Footer
+    // Header,
+    // Footer
   },
   data: function () {
     return {

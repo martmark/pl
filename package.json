@@ -1,0 +1,33 @@
+{
+  "name": "past-life",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./bin/www",
+  "scripts": {
+    "start": "per-env",
+    "server": "nodemon -r dotenv/config ./bin/www",
+    "frontend": "npm run serve --prefix frontend",
+    "frontend-install": "npm install --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run frontend\"",
+    "start:production": "./bin/www"
+  },
+  "keywords": [],
+  "author": "Martin Markaj",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "body-parser": "^1.19.0",
+    "concurrently": "^5.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "per-env": "^1.0.2",
+    "pg": "^8.0.0",
+    "sequelize": "^5.21.6"
+  },
+  "devDependencies": {
+    "dotenv-cli": "^3.1.0",
+    "nodemon": "^2.0.2",
+    "sequelize-cli": "^5.5.1"
+  }
+}

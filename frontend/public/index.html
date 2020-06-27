@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="google-signin-client_id" content="874838359026-1cr6gr9vpcppc65r4miasd0vbh4ab7o4.apps.googleusercontent.com">
+    <title>Video Player</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="text/javascript">
+      const clientId = '175867390439-oitvpr6m5j61gsaub3o4le7fl1714q4q.apps.googleusercontent.com';
+      function handleClientLoad() {
+        gapi.load('client:auth2', initClient);
+      }
+      let googleAuth;
+      function initClient() {
+        gapi.client.init({
+          clientId: clientId,
+          scope: 'profile'
+        }).then(function () {
+          googleAuth = gapi.auth2.getAuthInstance();
+          window.google = googleAuth;
+        });
+      }
+    </script>
+    <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()"
+      onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
+  </body>
+</html>

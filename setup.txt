@@ -1,0 +1,21 @@
+Setup instructions:
+
+1.  Create psql user and databse
+    In psql shell, run the following commands:
+
+        CREATE DATABASE pastlife_app_db;
+        CREATE USER pastlife_app WITH PASSWORD '400WMaple!';
+        GRANT ALL PRIVILEGES ON DATABASE pastlife_app_db TO pastlife_app;
+
+
+2.  From the root directory, run the following commands in the terminal:
+
+        npm install
+        npm run frontend-install
+        npx dotenv sequelize db:migrate
+        npm run dev
+
+
+3.  Navigate to http://localhost:8080 and check it out
+
+    

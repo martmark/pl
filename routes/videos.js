@@ -13,74 +13,74 @@ router.get("/videos", async (req, res) => {
   res.json({ videos });
 });
 
-// router.post("/videos", async (req, res) => {
-//   let { url, userId } = req.body.data;
+router.post("/videos", async (req, res) => {
+  let { url, userId } = req.body.data;
 
-//   let video = await Video.findOne({ where: { videoUrl: url }});
+  let video = await Video.findOne({ where: { videoUrl: url }});
 
-//   let likes = {
-//     likeCount: 0,
-//     dislikeCount: 0,
-//     liked: false,
-//     disliked: false,
-//   };
+  let likes = {
+    likeCount: 0,
+    dislikeCount: 0,
+    liked: false,
+    disliked: false,
+  };
 
-//   const comments = [];
+  const comments = [];
   
-//   if (!video) {
-//     let newVideo = new Video({
-//       videoUrl: url,
-//       playCount: 0
-//     });
-//     video = await newVideo.save();
-//     res.json({ videoId: video.id, comments, likes });
-//     return;
-//   }
+  if (!video) {
+    let newVideo = new Video({
+      videoUrl: url,
+      playCount: 0
+    });
+    video = await newVideo.save();
+    res.json({ videoId: video.id, comments, likes });
+    return;
+  }
 
-//   let resVideo = await Video.findByPk(video.id, {
-//     include: [
-//       {
-//         model: Comment,
-//         as: 'comments',
-//         include: {
-//           model: User,
-//           as: 'author'
-//         }
-//       },
-//       {
-//         model: Like,
-//         as: 'likes'
-//       }
-//     ]
-//   })
+  let resVideo = await Video.findByPk(video.id, {
+    include: [
+      {
+        model: Comment,
+        as: 'comments',
+        include: {
+          model: User,
+          as: 'author'
+        }
+      },
+      {
+        model: Like,
+        as: 'likes'
+      }
+    ]
+  })
 
-//   resVideo.likes.forEach(like => {
-//     if (like.dislike) {
-//       likes.dislikeCount++;
-//       if (userId && like.userId === userId) likes.disliked = true;
-//     } else {
-//       likes.likeCount++;
-//       if (userId && like.userId === userId) likes.liked = true;
-//     }
-//   })
+  resVideo.likes.forEach(like => {
+    if (like.dislike) {
+      likes.dislikeCount++;
+      if (userId && like.userId === userId) likes.disliked = true;
+    } else {
+      likes.likeCount++;
+      if (userId && like.userId === userId) likes.liked = true;
+    }
+  })
 
-//   let length = resVideo.comments.length;
-//   for (let i = length - 1; i >= 0; i--) {
-//     const { id, body, createdAt, author } = resVideo.comments[i];
-//     const { fName, lName } = author;
-//     let timeSince = moment(createdAt).fromNow();
-//     comments.push({ id, body, createdAt: timeSince, author: `${fName} ${lName}` });
-//   };
+  let length = resVideo.comments.length;
+  for (let i = length - 1; i >= 0; i--) {
+    const { id, body, createdAt, author } = resVideo.comments[i];
+    const { fName, lName } = author;
+    let timeSince = moment(createdAt).fromNow();
+    comments.push({ id, body, createdAt: timeSince, author: `${fName} ${lName}` });
+  };
 
-//   let resObj = {
-//     videoId: resVideo.id,
-//     playCount: resVideo.playCount,
-//     comments,
-//     likes
-//   }
+  let resObj = {
+    videoId: resVideo.id,
+    playCount: resVideo.playCount,
+    comments,
+    likes
+  }
 
-//   res.json(resObj);
-// });
+  res.json(resObj);
+});
 
 router.post('/videos/:videoId/play', async (req, res) => {
   const { videoId } = req.params;
